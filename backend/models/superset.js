@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
 
-const operatingSystemSchema = new mongoose.Schema({
+const supersetSchema = new mongoose.Schema({
     key: {
         type: String,
         required: true,
@@ -18,15 +18,15 @@ const operatingSystemSchema = new mongoose.Schema({
             message: "Description must be between 1 and 100 characters"
         }]
     },
-    uploadedBy: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "User",
-        required: true,
-    },
     status: {
         type: String,
         enum: ["pending", "accepted", "rejected"],
         default: "pending",
+    },
+    uploadedBy: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
     },
     fileUploadedOn: {
         type: Date,
@@ -41,7 +41,6 @@ const operatingSystemSchema = new mongoose.Schema({
 });
 
 
-const operatingSystemModel = mongoose.model("operatingSystem", operatingSystemSchema);
+const supersetModel = mongoose.model("superset", supersetSchema);
 
-module.exports = operatingSystemModel;
-
+module.exports = supersetModel;

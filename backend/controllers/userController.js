@@ -169,12 +169,6 @@ exports.loginUser = catchAsyncErrors(async (req, res, next) => {
         // ],
     };
 
-    try {
-        await sendEmail();
-    } catch (err) {
-        console.log(err);
-    }
-
     sendToken(user, req, 200, res);
 });
 // send user email
@@ -248,11 +242,11 @@ exports.sendUserEmail = catchAsyncErrors(async (req, res, next) => {
 
 // Logout User
 exports.logout = catchAsyncErrors(async (req, res, next) => {
-    const { hostel_student } = req.cookies;
-    res.cookie(hostel_student, null, {
-        expires: new Date(Date.now()),
-        httpOnly: true,
-    });
+    const { notes_for_you } = req.cookies;
+    // console.log(notes_for_you);
+//    delete this notes_for_you from the cookie list
+    res.clearCookie("notes_for_you");
+
 
     res.status(200).json({
         success: true,
@@ -401,7 +395,7 @@ exports.updateProfile = catchAsyncErrors(async (req, res, next) => {
 
 // Get all users(admin)
 exports.getAllUser = catchAsyncErrors(async (req, res, next) => {
-    const users = await User.find({ "confirmed": true }).sort({ change: -1, nexthostel: 1, name: 1 });
+    const users = await User.find();
 
     res.status(200).json({
         success: true,
