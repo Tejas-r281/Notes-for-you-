@@ -10,7 +10,10 @@ const {
   getAllFiles,
   changeStatus,
   getAllKey,
-  rejectFile
+  rejectFile,
+  likeFile,
+  commentFile,
+  getAllComments,
 } = require("../controllers/uploadController");
 
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
@@ -33,8 +36,11 @@ router.route("/allfiles").get(getAllFiles);
 router.route("/deletefile/:key").delete(deletefile);
 
 router.route("/updatefile").post(isAuthenticatedUser,authorizeRoles("admin"),changeStatus);
-router.route("/getallkey").get(isAuthenticatedUser, authorizeRoles("admin") ,getAllKey);
+router.route("/getallkey").get( getAllKey);
 router.route("/rejectfile").post(isAuthenticatedUser,authorizeRoles("admin"),rejectFile);
+router.route("/likefile").post(isAuthenticatedUser,likeFile);
+router.route("/commentfile").post(isAuthenticatedUser,commentFile);
+router.route("/getallcomments").get(isAuthenticatedUser, authorizeRoles("admin") ,getAllComments);
 
 
 

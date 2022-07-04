@@ -7,11 +7,12 @@ const dsa = require("../models/dsa");
 const superSet = require("../models/superset");
 // const makePdf = require("../utils/makePdf");
 const sendToken = require("../utils/jwtToken");
-// const sendEmail = require("../utils/sendEmail");
 const crypto = require("crypto");
 const AWS = require("aws-sdk");
 const uuid = require("uuid").v4;
 const fs = require("fs");
+
+const commentMessage = require("../models/commentMessage");
 
 // const S3 = require("aws-sdk/clients/s3");
 AWS.config.update({ region: "us-west-2" });
@@ -108,6 +109,7 @@ exports.getfile = catchAsyncErrors(async (req, res, next) => {
 
     const readStream = getFileStream(key);
     readStream.pipe(res);
+
 });
 
 exports.deletefile = catchAsyncErrors(async (req, res, next) => {
@@ -244,13 +246,13 @@ exports.rejectFile = catchAsyncErrors(async (req, res, next) => {
 
 // get all key from dbms, operating system, dsa, superset
 exports.getAllKey = catchAsyncErrors(async (req, res, next) => {
-    const dbmsData = await dbms.find({}).populate("uploadedBy", "name");
+    const dbmsData = await dbms.find({}).populate("uploadedBy", "name").select('key');
     const operatingSystemData = await operatingSystem
         .find({})
-        .populate("uploadedBy", "name");
-    const dsaData = await dsa.find({}).populate("uploadedBy", "name");
-    const superSetData = await superSet.find({}).populate("uploadedBy", "name");
-
+        .populate("uploadedBy", "name").select('key');
+    const dsaData = await dsa.find({}).populate("uploadedBy", "name").select('key');
+    const superSetData = await superSet.find({}).populate("uploadedBy", "name").select('key');
+    // conlsole.log(dbmsData);
     res.status(200).send({
         dbmsData: dbmsData,
         operatingSystemData: operatingSystemData,
@@ -258,34 +260,88 @@ exports.getAllKey = catchAsyncErrors(async (req, res, next) => {
         superSetData: superSetData,
     });
 });
-// implement likes function  buy using key and subject
-const setlike = (database, key) => {
-    return database
-        .findOne({ key: key })
-        .then((data) => {
-            data.likes = data.likes + 1;
-            data.save();
+
+const setlike = async (database, key, req, res) => {
+
+
+    const file = await database.findOne({ key: key });
+
+    console.log(file);
+
+    if (file.likes.includes(req.user._id)) {
+        res.status(200).send({
+            message: "Already liked"
         })
-        .catch((err) => {
-            console.log(err);
-        });
-};
-
-exports.like = catchAsyncErrors(async (req, res, next) => {
-    const key = req.body.key;
-    const subject = req.body.subject;
-
-    if (subject === "dbms") {
-        setlike(dbms, key);
-    } else if (subject === "Operating System") {
-        setlike(operatingSystem, key);
-    } else if (subject === "dsa") {
-        setlike(dsa, key);
-    } else {
-        setlike(superSet, key);
+    }
+    else {
+        file.likes.push(req.user._id);
+        file.save();
+        res.status(200).send({
+            message: "Liked"
+        })
     }
 
-    res.status(200).send({
-        message: "you liked this pdf",
-    });
+
+}
+
+
+exports.likeFile = catchAsyncErrors(async (req, res, next) => {
+
+    const subject = req.body.subject;
+    const key = req.body.key;
+
+    if (subject === "dbms") {
+        return setlike(dbms, key, req, res);
+    } else if (subject === "Operating System") {
+        return setlike(operatingSystem, key, req, res);
+    } else if (subject === "dsa") {
+        return setlike(dsa, key, req, res);
+    } else {
+        return setlike(superSet, key, req, res);
+    }
+
+
 });
+
+// comment section for the files
+
+exports.commentFile = catchAsyncErrors(async (req, res, next) => {
+
+    const message = req.body.message;
+
+    //  const all=  await commentMessage.find({});
+
+    //  console.log(all.comments);
+
+    const comments = new commentMessage(
+        {
+
+
+            comment: message,
+            user: req.user._id
+
+        });
+
+    comments.save();
+
+
+
+
+    res.status(200).send({
+        message: "Comment added Successfully",
+    });
+
+
+}
+)
+
+// get all comments
+exports.getAllComments = catchAsyncErrors(async (req, res, next) => {
+
+    const comments = await commentMessage.find({}).populate("user");
+
+    res.status(200).send({
+        comments: comments,
+    });
+}
+)
