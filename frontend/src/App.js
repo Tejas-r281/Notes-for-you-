@@ -24,19 +24,15 @@ import Header from "./components/Screen/Header.js";
 //   // addcomment,
 //   getallcomment
 // } from "./actions/suggestionAction";
-import {landingaction} from "./actions/landingAction";
+import {landingaction,subjectaction} from "./actions/landingAction";
 
 function App() {
   //  const navigate1 = useNavigate();
   // const { isAuthenticated, user } = useSelector((state) => state.user);
   useEffect(() => {
     try {
-
-      // store.dispatch(getAllUsers());
-      // store.dispatch(loadUser());
-      // store.dispatch(getRecommendationAction(user.hostel, user.nexthostel));
-      // store.dispatch(getallcomment());
-      store.dispatch(landingaction());
+      // store.dispatch(landingaction());
+      // store.dispatch(subjectaction("dbms"));
     }
     catch
     {

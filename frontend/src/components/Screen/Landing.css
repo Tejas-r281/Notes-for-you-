@@ -1,0 +1,63 @@
+
+.home
+{
+    box-sizing: border-box;
+    display:grid;
+    grid-template-columns: 1fr 250px;
+    height: 90vh;
+}
+
+.homeright
+{
+    background-image:linear-gradient(to right, #fff5bc,#cec1ff);
+    overflow-y:auto;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    /* padding:2vmax; */
+    box-sizing: border-box;
+    /* margin:10px; */
+    padding-top:50px;
+}
+
+.homeleft
+{
+    /* width:100%; */
+    padding:2vmax;
+    box-sizing: border-box;
+    overflow-y:auto;
+    /* background-color:red; */
+}
+.subjectlink
+{
+    text-decoration:none;
+    color:black;
+    cursor:pointer;
+    margin:5px;
+}
+.homelefttop
+{
+    /* width:100vw; */
+    text-align:center;
+}
+.subjectlist
+{
+    display:flex;
+    flex-direction:column;
+    height:100%;
+    width:100%;
+    flex-wrap:wrap;
+
+}
+.subjectbox
+{
+    height:200px;
+    width:200px;
+    /* background-color:red; */
+    margin:10px;
+}
+.subject
+{
+    color:black;
+    cursor:pointer;
+}

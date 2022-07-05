@@ -22,10 +22,10 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     // 3) Save the resetToken in the user's document
     await user.save({ validateBeforeSave: false });
     // 3) Send it to user's email
-    // const resetPasswordUrl = `${req.protocol}://${req.get(
-    //     "host"
-    // )}/api/v1/user/confirm/${resetToken}`;
-    const resetPasswordUrl = `http://localhost:5000/api/v1/user/confirm/${resetToken}`;
+    const resetPasswordUrl = `${req.protocol}://${req.get(
+        "host"
+    )}/api/v1/user/confirm/${resetToken}`;
+    // const resetPasswordUrl = `http://localhost:5000/api/v1/user/confirm/${resetToken}`;
 
     const message = `Please click this link to confirm your email address: ${resetPasswordUrl}.\n`;
     const data =

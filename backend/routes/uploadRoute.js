@@ -14,6 +14,7 @@ const {
   likeFile,
   commentFile,
   getAllComments,
+  getAllKeyBySubject
 } = require("../controllers/uploadController");
 
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
@@ -41,6 +42,7 @@ router.route("/rejectfile").post(isAuthenticatedUser,authorizeRoles("admin"),rej
 router.route("/likefile").post(isAuthenticatedUser,likeFile);
 router.route("/commentfile").post(isAuthenticatedUser,commentFile);
 router.route("/getallcomments").get(isAuthenticatedUser, authorizeRoles("admin") ,getAllComments);
+router.route("/getallkeybysubject").get(getAllKeyBySubject);
 
 
 
