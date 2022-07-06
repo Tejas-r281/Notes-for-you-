@@ -31,8 +31,8 @@ const storage = multer.memoryStorage({
 })
 const upload = multer({ storage }).single('file');
 
-router.route("/uploadfile").post(isAuthenticatedUser,upload,uploadFile);
-router.route("/file/:key").get(getfile);
+router.route("/uploadfile").post(upload,uploadFile);
+router.route("/file/:id").get(getfile);
 router.route("/allfiles").get(getAllFiles);
 router.route("/deletefile/:key").delete(deletefile);
 
@@ -43,6 +43,8 @@ router.route("/likefile").post(isAuthenticatedUser,likeFile);
 router.route("/commentfile").post(isAuthenticatedUser,commentFile);
 router.route("/getallcomments").get(isAuthenticatedUser, authorizeRoles("admin") ,getAllComments);
 router.route("/getallkeybysubject").get(getAllKeyBySubject);
+
+
 
 
 

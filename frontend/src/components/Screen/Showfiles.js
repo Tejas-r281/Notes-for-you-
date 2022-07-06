@@ -2,7 +2,7 @@ import React, { Fragment, useState, useEffect } from "react";
 import Loader from "../Layout/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux"
 import { useAlert } from "react-alert";
-import { Link } from "react-router-dom";
+//import { Redirect } from "react-router-dom";
 import {pageaction} from "../../actions/landingAction";
 function Showfiles() {
   const dispatch = useDispatch();
@@ -19,27 +19,30 @@ function Showfiles() {
     }
   }, [dispatch, error, keys, alert, loading]);
 
+   const redirectToPdf=(key)=>
+  {
+    //window.location.href = `http:
+// https://notes-app-for-you.herokuapp.com/
+
+     window.location.href = `https://notes-app-for-you.herokuapp.com/api/v1/file/${key}`;
+  }
+
   return (
     <>
       {loading ? <Loader /> :
         <div className="subjectlist">
           {keys && keys.map((subject, index) => {
             return (
-              // <div className="subjectbox" onClick={() => getfiles(subject.key)} key={index} >
-              //   <div className="subject">
-              //     <h6>{subject.key}</h6>
-              //   </div>
-              // </div>
+
               <div className="subjectbox" key={index}>
               {
-                  <Link to={`/api/v1/file/${subject.key}`} key={index}>
+                  //<Redirect to='http://localhost:5000/api/v1/file/${subject.key}'>
 
-                    <div className="subject">
-
+                    <div className="subject" onClick={()=>redirectToPdf(subject.key)}>
                       <h6>{subject.key}</h6>
                     </div>
 
-                  </Link>
+                  //</Redirect>
               }
               </div>
 

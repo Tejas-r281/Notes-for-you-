@@ -10,3 +10,9 @@ export const CLEAR_ERRORS = "CLEAR_ERRORS";
 export const PAGE_REQUEST = "PAGE_REQUEST";
 export const PAGE_SUCCESS = "PAGE_SUCCESS";
 export const PAGE_FAIL = "PAGE_FAIL";
+
+export const NEW_FILE_REQUEST = "NEW_FILE_REQUEST";
+export const NEW_FILE_SUCCESS = "NEW_FILE_SUCCESS";
+export const NEW_FILE_FAIL = "NEW_FILE_FAIL";
+
+export const NEW_FILE_RESET= "NEW_FILE_RESET";

@@ -43,9 +43,7 @@ exports.uploadFile = catchAsyncErrors(async (req, res, next) => {
         Body: req.file.buffer,
     };
 
-    // console.log(params)
-    // problem is upload pahle ho jaa raha then we are checkking for that that the issue , either we can fix it in the frontend
-    s3.upload(params, (error, data) => {
+     s3.upload(params, (error, data) => {
         if (error) {
             res.status(500).send(error);
         }
@@ -53,12 +51,14 @@ exports.uploadFile = catchAsyncErrors(async (req, res, next) => {
             const dbmsData = new database({
                 key: params.Key,
                 description: description,
-                uploadedBy: req.user._id,
+                // uploadedBy: req.user._id,
+                uploadedBy: "62c4720e3153703aaace88cd",
                 fileUploadedOn: Date.now(),
             });
             dbmsData.save();
 
-        const id = req.user._id;
+        // const id = req.user._id;
+        const id = "62c4720e3153703aaace88cd";
         const key = params.Key;
         // console.log(id);
         User.findById(id)
@@ -83,11 +83,10 @@ const getFileStream = (filekey) => {
 };
 
 exports.getfile = catchAsyncErrors(async (req, res, next) => {
-    const key = req.params.key;
-
+    const key = req.params.id;
+    // console.log(key);
     const readStream = getFileStream(key);
     readStream.pipe(res);
-
 });
 
 exports.deletefile = catchAsyncErrors(async (req, res, next) => {

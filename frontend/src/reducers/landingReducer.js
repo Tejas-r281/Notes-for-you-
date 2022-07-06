@@ -8,7 +8,11 @@ import {
     CLEAR_ERRORS,
     PAGE_REQUEST,
     PAGE_SUCCESS,
-    PAGE_FAIL
+    PAGE_FAIL,
+    NEW_FILE_REQUEST,
+    NEW_FILE_SUCCESS,
+    NEW_FILE_FAIL,
+    NEW_FILE_RESET
 } from "../constants/landingConstant";
 
 
@@ -48,23 +52,27 @@ export const subjectreducer = (state = {}, action) => {
             return {
                 // ...state,
                 loading: true,
+                success: false,
             };
         case SUBJECT_SUCCESS:
             return {
                 // ...state,
                 loading: false,
                 keys: action.payload.data,
+                success: true,
             };
         case SUBJECT_FAIL:
             return {
                 // ...state,
                 loading: false,
                 error: action.payload,
+                success: false,
             };
         case CLEAR_ERRORS:
             return {
                 ...state,
                 error: null,
+
             };
         default:
             return state;
@@ -89,6 +97,43 @@ export const pagereducer= (state = {}, action) => {
                 // ...state,
                 loading: false,
                 error: action.payload,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+}
+
+export const createfilereducer= (state = {}, action) => {
+    switch (action.type) {
+        case NEW_FILE_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                success: false,
+            };
+        case NEW_FILE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                keys: action.payload,
+                success: true,
+            };
+        case NEW_FILE_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+                success: false,
+            };
+        case NEW_FILE_RESET:
+            return {
+                ...state,
+                success: false,
             };
         case CLEAR_ERRORS:
             return {

@@ -8,7 +8,10 @@ import {
     CLEAR_ERRORS,
     PAGE_REQUEST,
     PAGE_SUCCESS,
-    PAGE_FAIL
+    PAGE_FAIL,
+    NEW_FILE_REQUEST,
+    NEW_FILE_SUCCESS,
+    NEW_FILE_FAIL,
 } from "../constants/landingConstant";
 
 import axios from "axios";
@@ -80,6 +83,31 @@ export const pageaction = (key) => async (dispatch) => {
     }
 }
 
+export const createFile = (productData) => async (dispatch) => {
+    try {
+        dispatch({ type: NEW_FILE_REQUEST });
+
+        const config = {
+            headers: { "Content-Type": "application/json" },
+        };
+
+        const { data } = await axios.post(
+            `/api/v1/uploadfile`,
+            productData,
+            config
+        );
+        // console.log(data);
+        dispatch({
+            type: NEW_FILE_SUCCESS,
+            payload: data,
+        });
+    } catch (error) {
+        dispatch({
+            type: NEW_FILE_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+};
 
 
 

@@ -15,7 +15,8 @@ import
 {
   landingreducer,
     subjectreducer,
-    pagereducer
+    pagereducer,
+    createfilereducer
 } from "./reducers/landingReducer"
 // import {
 //     commentReducer,
@@ -42,7 +43,8 @@ const reducer = combineReducers({
     // deleteUser: deleteUserReducer
     landing: landingreducer,
     subject: subjectreducer,
-    page: pagereducer
+    page: pagereducer,
+    createfile: createfilereducer
 
 });
 

@@ -1,43 +1,53 @@
 export const sub = [
     {
         name: "DBMS",
-        database: "dbms"
+        database: "dbms",
+        id: 1
     },
     {
         name: "Operating System",
-        database: "operatingSystem"
+        database: "operatingSystem",
+        id: 2
     },
     {
         name: "Data Structure and Algorithm",
-        database: "dsa"
+        database: "dsa",
+        id: 3
     },
     {
         name:"System Design and Architecture",
-        database:"systemDesign"
+        database: "systemDesign",
+        id: 4
     },
     {
         name:"Object Oriented Programming",
-        database:"oop"
+        database: "oop",
+        id: 5
     },
     {
         name:"Computer Networks",
-        database:"computerNetworks"
+        database: "computerNetworks",
+        id: 6
     },
     {
         name:" Competitive Programming",
-        database:"competitiveProgramming"
+        database: "competitiveProgramming",
+        id: 7
     },
     {
         name:"FrontEnd",
-        database:"frontend"
+        database: "frontend",
+        id: 8
     },
     {
         name:"BackEnd",
-        database:"backend"
+        database: "backend",
+        id: 9
     },
     {
         name: "Remaing Subjects",
-        database: "superSet"
+        database: "superSet",
+        id: 10
     },
 
 ];

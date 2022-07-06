@@ -14,6 +14,7 @@ import NotFound from "./components/Layout/Notfound/NotFound.js";
 // import ResetPassword from "./components/User/ResetPassword.js";
 import Landing from "./components/Screen/Landing";
 import Header from "./components/Screen/Header.js";
+import Uploadpage from "./components/Screen/Uploadpage.js";
 // import Recommendation from "./component/User/Recommendation.js";
 // import Suggestion from "./component/User/Suggestion.js";
 // import Profile from "./component/User/Profile.js";
@@ -45,14 +46,12 @@ function App() {
   // window.addEventListener("contextmenu", (e) => e.preventDefault());
   return (
     <Router>
-    <Header />
+
       <Routes>
 
 
         <Route exact path="/" element={<Landing/>} />
-
-
-
+        <Route exact path="/upload" element={<Uploadpage/>} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </Router>

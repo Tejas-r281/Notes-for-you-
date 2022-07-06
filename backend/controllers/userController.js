@@ -75,7 +75,7 @@ exports.confirmUser = catchAsyncErrors(async (req, res, next) => {
 
 
     if (!user) {
-        return next(new ErrorHander("Now you can login , your email varified", 200));
+        return next(new ErrorHander("Ooops , Invalid token", 400));
     }
 
     user.confirmed = true;

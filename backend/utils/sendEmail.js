@@ -50,7 +50,7 @@ const sendEmail = async (data) => {
         };
 
         const result= await transport.sendMail(mailOptions);
-        console.log(result);
+        // console.log(result);
         return result;
      }
       catch (err) {
