@@ -18,7 +18,11 @@ import {
     SUBJECT,
     ME_REQUEST,
     ME_SUCCESS,
-    ME_FAIL
+    ME_FAIL,
+    DELETE_FILE_REQUEST,
+    DELETE_FILE_SUCCESS,
+    DELETE_FILE_FAIL,
+
 } from "../constants/landingConstant";
 
 import axios from "axios";
@@ -130,7 +134,7 @@ export const likeaction = (data) => async (dispatch) => {
             type: LIKE_SUCCESS,
             payload: res.data,
         });
-        
+
     }
     catch (err) {
         dispatch({
@@ -174,6 +178,29 @@ export const useraction = () => async (dispatch) => {
     }
 
 }
+
+export const deleteFile = (data) => async (dispatch) => {
+    try {
+        dispatch({
+            type: DELETE_FILE_REQUEST,
+        });
+        // console.log(data);
+        const config = { headers: { "Content-Type": "application/json" } };
+        const res = await axios.delete(`/api/v1/deletefile`,{data}, config);
+        dispatch({
+            type: DELETE_FILE_SUCCESS,
+            payload: res.data,
+        });
+    }
+    catch (err) {
+        dispatch({
+            type: DELETE_FILE_FAIL,
+            payload: err.response.data.message,
+        });
+
+    }
+}
+
 
 
 

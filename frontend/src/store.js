@@ -19,7 +19,8 @@ import
     createfilereducer,
     likereducer,
     changereducer,
-    mereducer
+    mereducer,
+    deletereducer
 } from "./reducers/landingReducer"
 // import {
 //     commentReducer,
@@ -51,7 +52,8 @@ const reducer = combineReducers({
     like: likereducer,
     change: changereducer,
     // user: userReducer,
-    me: mereducer
+    me: mereducer,
+    deletefile: deletereducer
 });
 
 

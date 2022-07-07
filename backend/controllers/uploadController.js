@@ -91,7 +91,10 @@ exports.getfile = catchAsyncErrors(async (req, res, next) => {
 
 exports.deletefile = catchAsyncErrors(async (req, res, next) => {
     // const key = req.params.key;
+    // console.log(req.body);
     const{key,status}=req.body;
+    // console.log(key);
+    // console.log(status);
     let myFile = key.split(".");
     const database = myFile[myFile.length - 1];
 
@@ -102,22 +105,27 @@ exports.deletefile = catchAsyncErrors(async (req, res, next) => {
     // console.log(file_detail);
     // console.log(user_detail);
     // now delete the file_detail and save the database
-    await file_detail.remove();
-    await user_detail.save();
+
 
 
     // delete file from user database
     if(status==="accepted"){
         user_detail.accepted.splice(user_detail.accepted.indexOf(key),1);
-        user_detail.save();
+        await  user_detail.save();
+        await file_detail.remove();
+        await user_detail.save();
     }
     else if(status==="rejected"){
         user_detail.rejected.splice(user_detail.rejected.indexOf(key),1);
-        user_detail.save();
+        await user_detail.save();
+        await file_detail.remove();
+        await user_detail.save();
     }
     else if(status==="pending"){
         user_detail.pending.splice(user_detail.pending.indexOf(key),1);
-        user_detail.save();
+        await user_detail.save();
+        await file_detail.remove();
+        await user_detail.save();
     }
     const params = {
         Bucket: bucketName,
@@ -151,13 +159,14 @@ exports.getAllFiles = catchAsyncErrors(async (req, res, next) => {
         });
     });
 });
-const setstatus = (database, key) => {
-    return database
+const setstatus = async(database, key,res) => {
+    return await database
         .findOne({ key: key })
         .then((data) => {
             //remove key from pending list and add same key in accepted list from user database
             const id = data.uploadedBy;
             const key = data.key;
+            // console.log(data);
             User.findById(id)
                 .then((data) => {
                     data.pending.splice(data.pending.indexOf(key), 1);
@@ -169,9 +178,12 @@ const setstatus = (database, key) => {
                 });
             data.status = "accepted";
             data.save();
+
+            res.status(200).send(data);
         })
         .catch((err) => {
             console.log(err);
+            res.status(500).send(err);
         });
 };
 
@@ -183,13 +195,16 @@ exports.changeStatus = catchAsyncErrors(async (req, res, next) => {
     // const decription=req.body.description;
     const data = req.body.subject;
 
-    const database = eval(data);
 
-        setstatus(database, key);
+
+    const database = eval(data);
+    // console.log(typeof database);
+
+      setstatus(database, key,res);
 
 });
 // remove the file from pending list and put into the rejected list of the users database
-const setrejectfile = (database, key) => {
+const setrejectfile = (database, key,res) => {
     return database
         .findOne({ key: key })
         .then((data) => {
@@ -207,9 +222,11 @@ const setrejectfile = (database, key) => {
                 });
             data.status = "rejected";
             data.save();
+            res.status(200).send(data);
         })
         .catch((err) => {
             console.log(err);
+            res.status(500).send(err);
         });
 }
 // reject the file
@@ -224,7 +241,7 @@ exports.rejectFile = catchAsyncErrors(async (req, res, next) => {
     const database = eval(data);
 
 
-    setrejectfile(database, key);
+    setrejectfile(database, key,res);
 
 
 });

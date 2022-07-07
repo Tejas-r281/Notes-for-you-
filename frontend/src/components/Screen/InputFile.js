@@ -1,7 +1,7 @@
 import React, { Fragment, useEffect, useState } from "react";
 import "./newFile.css";
 import { useSelector, useDispatch } from "react-redux";
-import { clearErrors, createFile } from "../../actions/landingAction";
+import { clearErrors, createFile ,useraction} from "../../actions/landingAction";
 import { useAlert } from "react-alert";
 import { Button } from "@material-ui/core";
 import MetaData from "../Layout/MetaData.js";
@@ -40,9 +40,10 @@ const NewProduct = () => {
         }
 
         if (success) {
-            alert.success("Product Created Successfully");
+            alert.success("Your notes uploaded Successfully");
             // history.push("/admin/dashboard");
             navigate("/");
+            dispatch(useraction());
             dispatch({ type: NEW_FILE_RESET });
         }
     }, [dispatch, alert, error, navigate, success]);

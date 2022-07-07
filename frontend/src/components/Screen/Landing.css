@@ -40,6 +40,10 @@
     /* width:100vw; */
     text-align:center;
 }
+.actionbtn
+{
+    cursor:pointer;
+}
 .subjectlist
 {
     display:flex;

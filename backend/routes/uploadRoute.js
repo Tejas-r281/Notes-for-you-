@@ -37,9 +37,9 @@ router.route("/file/:id").get(getfile);
 router.route("/allfiles").get(getAllFiles);
 router.route("/deletefile").delete(isAuthenticatedUser,deletefile);
 
-router.route("/updatefile").post(isAuthenticatedUser,authorizeRoles("admin"),changeStatus);
+router.route("/updatefile").put(isAuthenticatedUser,changeStatus);
 router.route("/getallkey").get( getAllKey);
-router.route("/rejectfile").post(isAuthenticatedUser,authorizeRoles("admin"),rejectFile);
+router.route("/rejectfile").put(isAuthenticatedUser,rejectFile);
 router.route("/likefile").put(isAuthenticatedUser,likeFile);
 router.route("/commentfile").post(isAuthenticatedUser,commentFile);
 router.route("/getallcomments").get(isAuthenticatedUser, authorizeRoles("admin") ,getAllComments);

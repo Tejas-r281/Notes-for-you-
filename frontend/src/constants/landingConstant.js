@@ -27,3 +27,7 @@ export const ME_REQUEST = "ME_REQUEST";
 export const ME_SUCCESS = "ME_SUCCESS";
 export const ME_FAIL = "ME_FAIL";
 export const CLEAR_LIKES = "CLEAR_LIKES";
+export const DELETE_FILE_REQUEST = "DELETE_FILE_REQUEST";
+export const DELETE_FILE_SUCCESS = "DELETE_FILE_SUCCESS";
+export const DELETE_FILE_FAIL = "DELETE_FILE_FAIL";
+

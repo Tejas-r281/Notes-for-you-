@@ -20,7 +20,10 @@ import {
     ME_REQUEST,
     ME_SUCCESS,
     ME_FAIL,
-    CLEAR_LIKES
+    CLEAR_LIKES,
+    DELETE_FILE_REQUEST,
+    DELETE_FILE_SUCCESS,
+    DELETE_FILE_FAIL,
 } from "../constants/landingConstant";
 
 
@@ -178,7 +181,7 @@ export const likereducer = (state = {}, action) => {
         case CLEAR_LIKES:
             {
                 return {
-                
+
                     keys:null,
                 }
             }
@@ -229,6 +232,35 @@ export const mereducer = (state = {}, action) => {
                 keys: action.payload,
             };
         case ME_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+}
+
+export const deletereducer= (state = {}, action) => {
+    switch (action.type) {
+        case DELETE_FILE_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case DELETE_FILE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                keys: action.payload,
+            };
+        case DELETE_FILE_FAIL:
             return {
                 ...state,
                 loading: false,
