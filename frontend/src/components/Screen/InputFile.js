@@ -42,7 +42,7 @@ const NewProduct = () => {
         if (success) {
             alert.success("Product Created Successfully");
             // history.push("/admin/dashboard");
-            // navigate("/admin/dashboard");
+            navigate("/");
             dispatch({ type: NEW_FILE_RESET });
         }
     }, [dispatch, alert, error, navigate, success]);
@@ -65,7 +65,7 @@ const NewProduct = () => {
 
     const createFilePdfChange = (e) => {
         const file = e.target.files[0];
-        console.log(file.name);
+        // console.log(file.name);
         setPdf(file);
         setNamePreview(file.name);
     };
@@ -83,15 +83,7 @@ const NewProduct = () => {
                     >
                         <h1>Add your notes</h1>
 
-                        <div>
-                            <SpellcheckIcon />
-                            <input
-                                type="text"
-                                placeholder="Linkedin URL"
-                                value={linkedin}
-                                onChange={(e) => setlinkedin(e.target.value)}
-                            />
-                        </div>
+
                         <div>
                             <DescriptionIcon />
                             <textarea

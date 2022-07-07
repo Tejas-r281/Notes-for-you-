@@ -12,6 +12,13 @@ import {
     NEW_FILE_REQUEST,
     NEW_FILE_SUCCESS,
     NEW_FILE_FAIL,
+    LIKE_REQUEST,
+    LIKE_SUCCESS,
+    LIKE_FAIL,
+    SUBJECT,
+    ME_REQUEST,
+    ME_SUCCESS,
+    ME_FAIL
 } from "../constants/landingConstant";
 
 import axios from "axios";
@@ -108,6 +115,67 @@ export const createFile = (productData) => async (dispatch) => {
         });
     }
 };
+
+export const likeaction = (data) => async (dispatch) => {
+    try {
+        dispatch({
+            type: LIKE_REQUEST,
+        });
+        // pass key by id
+        const config = { headers: { "Content-Type": "application/json" } };
+        // pass in the put request and key and subject as dbms
+        const res = await axios.put(`/api/v1/likefile`, { data }, config);
+        // const res = await axios.get(`/api/v1/like/${key}`);
+        dispatch({
+            type: LIKE_SUCCESS,
+            payload: res.data,
+        });
+        
+    }
+    catch (err) {
+        dispatch({
+            type: LIKE_FAIL,
+            payload: err.response.data.message,
+        });
+
+    }
+}
+
+
+export const changeaction = (subject) => async (dispatch) => {
+    // console.log(subject);
+    dispatch({
+        type: SUBJECT,
+        payload: subject,
+    });
+
+
+}
+
+
+export const useraction = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: ME_REQUEST,
+        });
+
+        const res = await axios.get("/api/v1/me");
+        dispatch({
+            type: ME_SUCCESS,
+            payload: res.data,
+        });
+    }
+    catch (err) {
+        dispatch({
+            type: ME_FAIL,
+            payload: err.response.data.message,
+        });
+
+    }
+
+}
+
+
 
 
 

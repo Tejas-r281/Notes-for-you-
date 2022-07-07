@@ -3,28 +3,50 @@ import Loader from "../Layout/Loader/Loader";
 import { useDispatch, useSelector } from "react-redux"
 import { useAlert } from "react-alert";
 //import { Redirect } from "react-router-dom";
-import {pageaction} from "../../actions/landingAction";
+import { pageaction, likeaction, subjectaction } from "../../actions/landingAction";
+import FavoriteIcon from '@material-ui/icons/Favorite';
 function Showfiles() {
   const dispatch = useDispatch();
   const alert = useAlert();
   const { keys, error = null, loading } = useSelector((state) => state.subject);
   //  console.log(keys)
-  const getfiles=async(key)=>
-  {
-    await dispatch(pageaction(key));
-  }
+  const {keys:likekeys,loading:likeloading,error:error1}= useSelector((state) => state.like);
+  const { subject } = useSelector((state) => state.change);
+
   useEffect(() => {
-    if (error) {
+    if (error ) {
       alert.error(error);
     }
-  }, [dispatch, error, keys, alert, loading]);
+    if(error1)
+    {
+      alert.error(error1);
+      dispatch({type:"CLEAR_ERRORS"});
+    }
+  }, [dispatch, error, keys, alert,error1, loading,likekeys]);
 
-   const redirectToPdf=(key)=>
-  {
+  const redirectToPdf = (key) => {
     //window.location.href = `http:
-// https://notes-app-for-you.herokuapp.com/
+    // https://notes-app-for-you.herokuapp.com/
 
-     window.location.href = `https://notes-app-for-you.herokuapp.com/api/v1/file/${key}`;
+    window.location.href = `https://notes-app-for-you.herokuapp.com/api/v1/file/${key}`;
+  }
+  const likesButton = async(key) => {
+    // console.log(key)
+    const data={
+      key:key,
+      subject:subject.database,
+    }
+   await dispatch(likeaction(data));
+  //  console.log(likekeys)
+     if(likekeys.message==="Already")
+     {
+        alert.success("Already Liked");
+        // dispatch({type:"CLEAR_LIKES"});
+        return;
+     }
+   await dispatch(subjectaction(subject.database))
+  //  console.log(message);
+
   }
 
   return (
@@ -34,17 +56,27 @@ function Showfiles() {
           {keys && keys.map((subject, index) => {
             return (
 
-              <div className="subjectbox" key={index}>
-              {
-                  //<Redirect to='http://localhost:5000/api/v1/file/${subject.key}'>
+              <div className="subjectbox card" key={index}>
+                {
+                  <div className="card-body cardbody">
 
-                    <div className="subject" onClick={()=>redirectToPdf(subject.key)}>
-                      <h6>{subject.key}</h6>
-                    </div>
+                      <p>{subject.description}</p>
+                      <div className="bottom">
+                      <div>
+                        <FavoriteIcon onClick={()=>likesButton(subject.key)} /><span>{subject.likes.length}</span>
+                      </div>
 
-                  //</Redirect>
-              }
+                      <button className="subject btn-success" onClick={() => redirectToPdf(subject.key)}>
+                        <h6>View Pdf</h6>
+                      </button>
+                      </div>
+
+                  </div>
+                }
               </div>
+
+
+
 
             )
 

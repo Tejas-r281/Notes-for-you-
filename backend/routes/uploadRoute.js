@@ -14,7 +14,8 @@ const {
   likeFile,
   commentFile,
   getAllComments,
-  getAllKeyBySubject
+  getAllKeyBySubject,
+  getSubjectDetails
 } = require("../controllers/uploadController");
 
 const { isAuthenticatedUser, authorizeRoles } = require("../middleware/auth");
@@ -31,18 +32,19 @@ const storage = multer.memoryStorage({
 })
 const upload = multer({ storage }).single('file');
 
-router.route("/uploadfile").post(upload,uploadFile);
+router.route("/uploadfile").post(isAuthenticatedUser,upload,uploadFile);
 router.route("/file/:id").get(getfile);
 router.route("/allfiles").get(getAllFiles);
-router.route("/deletefile/:key").delete(deletefile);
+router.route("/deletefile").delete(isAuthenticatedUser,deletefile);
 
 router.route("/updatefile").post(isAuthenticatedUser,authorizeRoles("admin"),changeStatus);
 router.route("/getallkey").get( getAllKey);
 router.route("/rejectfile").post(isAuthenticatedUser,authorizeRoles("admin"),rejectFile);
-router.route("/likefile").post(isAuthenticatedUser,likeFile);
+router.route("/likefile").put(isAuthenticatedUser,likeFile);
 router.route("/commentfile").post(isAuthenticatedUser,commentFile);
 router.route("/getallcomments").get(isAuthenticatedUser, authorizeRoles("admin") ,getAllComments);
 router.route("/getallkeybysubject").get(getAllKeyBySubject);
+router.route("/subject/:key").get(getSubjectDetails);
 
 
 

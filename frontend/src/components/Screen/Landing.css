@@ -43,21 +43,39 @@
 .subjectlist
 {
     display:flex;
-    flex-direction:column;
+    flex-direction:row;
+    flex-wrap:wrap;
     height:100%;
     width:100%;
     flex-wrap:wrap;
+    background-color:rgb(218, 233, 233);
 
 }
 .subjectbox
 {
-    height:200px;
-    width:200px;
+    height:250px;
+    width:250px;
     /* background-color:red; */
     margin:10px;
+     display: flex;
+    justify-content:  space-between;
 }
 .subject
 {
     color:black;
     cursor:pointer;
+}
+.bottom
+{
+    display:flex;
+    flex-direction:row;
+    justify-content:space-between;
+    /* margin:auto; */
+}
+.cardbody
+{
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    /* background-color:rgb(218, 233, 233); */
 }

@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Routes, Route, useNavigate } from "react-route
 import store from "./store";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
-// import LoginSignUp from "./components/User/LoginSignUp.js";
+import LoginSignUp from "./components/User/LoginSignUp.js";
 // import { getAllUsers, loadUser, getRecommendationAction } from "./actions/userAction.js";
 // // import UserList from "./Component/Admin/UsersList.js";
 // // import UpdateUser from "./component/Admin/UpdateUser.js";
@@ -25,14 +25,14 @@ import Uploadpage from "./components/Screen/Uploadpage.js";
 //   // addcomment,
 //   getallcomment
 // } from "./actions/suggestionAction";
-import {landingaction,subjectaction} from "./actions/landingAction";
+import {landingaction,subjectaction,useraction} from "./actions/landingAction";
 
 function App() {
   //  const navigate1 = useNavigate();
   // const { isAuthenticated, user } = useSelector((state) => state.user);
   useEffect(() => {
     try {
-      // store.dispatch(landingaction());
+      store.dispatch(useraction());
       // store.dispatch(subjectaction("dbms"));
     }
     catch
@@ -52,6 +52,7 @@ function App() {
 
         <Route exact path="/" element={<Landing/>} />
         <Route exact path="/upload" element={<Uploadpage/>} />
+        <Route exact path="/loginsignup" element={<LoginSignUp/>} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </Router>

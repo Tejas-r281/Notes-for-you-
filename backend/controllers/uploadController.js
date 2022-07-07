@@ -33,13 +33,13 @@ exports.uploadFile = catchAsyncErrors(async (req, res, next) => {
     const data = req.body.subject;
 
     const database = eval(data);
-
+    // console.log(myFile);
 
     const fileType = myFile[myFile.length - 1];
     //  console.log(fileType);
     const params = {
         Bucket: bucketName,
-        Key: `${uuid()}.${fileType}`,
+        Key: `${uuid()}.${fileType}.${data}`,
         Body: req.file.buffer,
     };
 
@@ -51,14 +51,14 @@ exports.uploadFile = catchAsyncErrors(async (req, res, next) => {
             const dbmsData = new database({
                 key: params.Key,
                 description: description,
-                // uploadedBy: req.user._id,
-                uploadedBy: "62c4720e3153703aaace88cd",
+                uploadedBy: req.user._id,
+                // uploadedBy: "62c4720e3153703aaace88cd",
                 fileUploadedOn: Date.now(),
             });
             dbmsData.save();
 
-        // const id = req.user._id;
-        const id = "62c4720e3153703aaace88cd";
+        const id = req.user._id;
+        // const id = "62c4720e3153703aaace88cd";
         const key = params.Key;
         // console.log(id);
         User.findById(id)
@@ -84,14 +84,41 @@ const getFileStream = (filekey) => {
 
 exports.getfile = catchAsyncErrors(async (req, res, next) => {
     const key = req.params.id;
-    // console.log(key);
+    console.log(key);
     const readStream = getFileStream(key);
     readStream.pipe(res);
 });
 
 exports.deletefile = catchAsyncErrors(async (req, res, next) => {
-    const key = req.params.key;
+    // const key = req.params.key;
+    const{key,status}=req.body;
+    let myFile = key.split(".");
+    const database = myFile[myFile.length - 1];
 
+    // console.log(database);
+    const user_detail= await User.findById(req.user._id);
+    // const database1 = eval(database);
+    const file_detail=  await eval(database).findOne({key:key});
+    // console.log(file_detail);
+    // console.log(user_detail);
+    // now delete the file_detail and save the database
+    await file_detail.remove();
+    await user_detail.save();
+
+
+    // delete file from user database
+    if(status==="accepted"){
+        user_detail.accepted.splice(user_detail.accepted.indexOf(key),1);
+        user_detail.save();
+    }
+    else if(status==="rejected"){
+        user_detail.rejected.splice(user_detail.rejected.indexOf(key),1);
+        user_detail.save();
+    }
+    else if(status==="pending"){
+        user_detail.pending.splice(user_detail.pending.indexOf(key),1);
+        user_detail.save();
+    }
     const params = {
         Bucket: bucketName,
         Key: key,
@@ -221,14 +248,14 @@ exports.getAllKey = catchAsyncErrors(async (req, res, next) => {
 
 const setlike = async (database, key, req, res) => {
 
-
+    //  console.log(key);
     const file = await database.findOne({ key: key });
 
     // console.log(file);
 
     if (file.likes.includes(req.user._id)) {
         res.status(200).send({
-            message: "Already liked"
+            message: "Already"
         })
     }
     else {
@@ -246,11 +273,12 @@ const setlike = async (database, key, req, res) => {
 exports.likeFile = catchAsyncErrors(async (req, res, next) => {
 
     // const subject = req.body.subject;
-    const key = req.body.key;
-    const data = req.body.subject;
 
-    const database = eval(data);
-    setlike(database, key, req, res);
+    const{key,subject}=req.body.data;
+    // console.log(key);
+    console.log(subject);
+    const database = eval(subject);
+   return setlike(database, key, req, res);
 
 
 });
@@ -305,10 +333,27 @@ exports.getAllKeyBySubject = catchAsyncErrors(async (req, res, next) => {
     const database = eval(subject);
 
 
-    const data1 = await database.find({}).populate("uploadedBy", "name").select('key');
+    const data1 = await database.find({}).populate("uploadedBy", "name");
     res.status(200).send({
         data: data1,
     });
 })
+
+
+// get subject details through key
+exports.getSubjectDetails = catchAsyncErrors(async (req, res, next) => {
+    {
+        const key=req.params.key;
+        let myFile = key.split(".");
+        const database = myFile[myFile.length - 1];
+
+        const data = await eval(database).findOne({ key: key });
+        res.status(200).send({
+            data: data,
+        });
+    }
+}
+)
+
 
 

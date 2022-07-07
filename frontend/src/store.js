@@ -16,7 +16,10 @@ import
   landingreducer,
     subjectreducer,
     pagereducer,
-    createfilereducer
+    createfilereducer,
+    likereducer,
+    changereducer,
+    mereducer
 } from "./reducers/landingReducer"
 // import {
 //     commentReducer,
@@ -31,7 +34,7 @@ import
 
 const reducer = combineReducers({
     // allUsers: allUsersReducer,
-    // user: userReducer,
+    user: userReducer,
     // profile: profileReducer,
     // forgotPassword: forgotPasswordReducer,
     // sendEmail: sendEmailReducer,
@@ -44,8 +47,11 @@ const reducer = combineReducers({
     landing: landingreducer,
     subject: subjectreducer,
     page: pagereducer,
-    createfile: createfilereducer
-
+    createfile: createfilereducer,
+    like: likereducer,
+    change: changereducer,
+    // user: userReducer,
+    me: mereducer
 });
 
 

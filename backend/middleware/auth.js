@@ -9,7 +9,7 @@ exports.isAuthenticatedUser = catchAsyncErrors(async (req, res, next) => {
     // console.log(hostel_student);
     // console.log(notes_for_you);
     if (!notes_for_you) {
-        return next(new ErrorHander("Please Login to access this resource", 401));
+        return next(new ErrorHander("Please Login ", 401));
     }
 
     const decodedData = jwt.verify(notes_for_you, process.env.JWT_SECRET);

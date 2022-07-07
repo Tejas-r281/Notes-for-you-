@@ -34,15 +34,10 @@ const LoginSignUp = () => {
   const [user, setUser] = useState({
     name: "",
     email: "",
-    year: 1,
-    branch: "IT",
     password: "",
-    hostel: 8,
-    nexthostel: 8,
-    change: false,
   });
 
-  const { name, email, year, branch, password, hostel, change, nexthostel } = user;
+  const { name, email, password } = user;
 
   // console.log("console.log(user)");
   // console.log(user);
@@ -71,12 +66,9 @@ const LoginSignUp = () => {
     {
       "name": name,
       "email": email,
-      "branch": branch,
-      "year": year,
+
       "password": password,
-      "hostel": hostel,
-      "change": change,
-      "nexthostel": nexthostel
+
     };
 
 
@@ -97,10 +89,10 @@ const LoginSignUp = () => {
 
     //   reader.readAsDataURL(e.target.files[0]);
     // } else {
-    var checked = false;
-    if (document.querySelector("#checkboxNoLabel:checked")) {
-      checked = true;
-    }
+    // var checked = false;
+    // if (document.querySelector("#checkboxNoLabel:checked")) {
+    //   checked = true;
+    // }
 
 
 
@@ -111,7 +103,7 @@ const LoginSignUp = () => {
 
 
     // console.log(checked);
-    setUser({ ...user, [e.target.name]: e.target.value, change: checked });
+    setUser({ ...user, [e.target.name]: e.target.value });
     // }
   };
   // console.log(location);
@@ -127,9 +119,9 @@ const LoginSignUp = () => {
     }
     if (isAuthenticated) {
       // history.push(redirect);
-      dispatch(getAllUsers());
-      navigate("/students");
-
+      // dispatch(getAllUsers());
+      // navigate("/students");
+      navigate("/");
     }
 
 
@@ -160,15 +152,7 @@ const LoginSignUp = () => {
         <Fragment>
           <div className="LoginSignUpContainer">
             <div className="LoginSignUpBox">
-                <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                  <strong>Hello User!</strong> You have to first Register and then Email varification and then login.
-                  <button type="button" className="btn-close cross" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
 
-                <div className="alert alert-warning alert-dismissible fade show" role="alert">
-                  <strong>Hello User!</strong>Both hostel number should not be equal.
-                  <button type="button" className="btn-close cross" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
 
               <div>
                 <div className="login_signUp_toggle">
@@ -229,91 +213,17 @@ const LoginSignUp = () => {
                     onChange={registerDataChange}
                   />
                 </div>
-                <div>
-                  <span> Year </span>
-                  <select
-                    id="ddlViewBy"
-                    className="mx-3"
-                    name="year"
-                    onChange={registerDataChange}
-                  >
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
 
-                  </select>
-                </div>
-                <div>
-                  <span>Branch </span>
-                  <select
-                    id="ddlViewBy1"
-                    className="mx-3"
-                    name="branch"
-                    onChange={registerDataChange}
-                  >
-                    <option value="IT">IT</option>
-                    <option value="CST">CST</option>
-                    <option value="ETC">ETC</option>
-                    <option value="EE">EE</option>
-                    <option value="AE">AE</option>
-                    <option value="MIN">MIN</option>
-                    <option value="MET">MET</option>
-                    <option value="ME">ME</option>
-                    <option value="CE">CE</option>
-                  </select>
-                </div>
+
+
                 <div className="signUpPassword">
                   <input
                     type="password"
-                      placeholder="password >=8 digits"
+                    placeholder="password >=8 digits"
                     required
                     name="password"
                     value={password}
                     onChange={registerDataChange}
-                  />
-                </div>
-                <div className="CurrentHostel">
-                    <span>Alloted Hostel</span>
-                    <select
-                      id="ddlViewBy2"
-                      className="mx-3"
-                      name="hostel"
-                      onChange={registerDataChange}
-                    >
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                      <option value="10">10</option>
-                      <option value="14">14</option>
-                      <option value="15">15</option>
-                      <option value="16">16</option>
-                    </select>
-                </div>
-                <div className="CurrentHostel">
-                    <span>Expected hostel </span>
-                    <select
-                      id="ddlViewBy3"
-                      className="mx-3"
-                      name="nexthostel"
-                      onChange={registerDataChange}
-                    >
-                      <option value="8">8</option>
-                      <option value="9">9</option>
-                      <option value="10">10</option>
-                      <option value="14">14</option>
-                      <option value="15">15</option>
-                      <option value="16">16</option>
-                    </select>
-                </div>
-
-                <div>
-                  <span>Do you want to change hostel ?</span>
-                  <input
-                    className="form-check-input"
-                    name="change"
-                    onChange={registerDataChange}
-                    type="checkbox"
-                    id="checkboxNoLabel"
-                    value={change}
                   />
                 </div>
 
