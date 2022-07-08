@@ -25,9 +25,10 @@ const ForgotPassword = () => {
     // {
     //   "email":email,
     // }
-
-    myForm.set("email", email);
-    dispatch(forgotPassword(myForm));
+    // myForm.append("email", email);
+    // myForm.set("email", email);
+    // console.log(email);
+    dispatch(forgotPassword(email));
   };
 
   useEffect(() => {

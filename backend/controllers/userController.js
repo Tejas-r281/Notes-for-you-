@@ -276,7 +276,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
     const resetPasswordUrl = `${req.protocol}://${req.get(
         "host"
-    )}/password/reset / ${resetToken} `;
+    )}/password/reset/${resetToken} `;
 
     const message = `Your password reset token is: - \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
     const data =
@@ -307,6 +307,7 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 // Reset Password
 exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
     // creating token hash
+    // console.log(req.params.token);
     const resetPasswordToken = crypto
         .createHash("sha256")
         .update(req.params.token)
@@ -327,7 +328,7 @@ exports.resetPassword = catchAsyncErrors(async (req, res, next) => {
     }
 
     if (req.body.password !== req.body.confirmPassword) {
-        return next(new ErrorHander("Password does not password", 400));
+        return next(new ErrorHander("Password does not match", 400));
     }
 
     user.password = req.body.password;
