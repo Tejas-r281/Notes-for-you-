@@ -20,13 +20,13 @@ const ForgotPassword = () => {
   const forgotPasswordSubmit = (e) => {
     e.preventDefault();
 
-    // const myForm = new FormData();
-    const myForm =
-    {
-      "email":email,
-    }
+    const myForm = new FormData();
+    // const myForm =
+    // {
+    //   "email":email,
+    // }
 
-    // myForm.set("email", email);
+    myForm.set("email", email);
     dispatch(forgotPassword(myForm));
   };
 

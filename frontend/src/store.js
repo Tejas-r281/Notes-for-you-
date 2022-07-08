@@ -37,7 +37,7 @@ const reducer = combineReducers({
     // allUsers: allUsersReducer,
     user: userReducer,
     // profile: profileReducer,
-    // forgotPassword: forgotPasswordReducer,
+    forgotPassword: forgotPasswordReducer,
     // sendEmail: sendEmailReducer,
     // recommendation: recommendationReducer,
     // comment: commentReducer,

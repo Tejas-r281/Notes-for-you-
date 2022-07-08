@@ -10,7 +10,7 @@ import LoginSignUp from "./components/User/LoginSignUp.js";
 // import StudentList from "./component/User/StudentList.js";
 import NotFound from "./components/Layout/Notfound/NotFound.js";
 // import UpdateStudent from "./component/User/UpdateStudent.js"
-// import ForgotPassword from "./components/User/ForgotPassword.js";
+import ForgotPassword from "./components/User/ForgotPassword.js";
 // import ResetPassword from "./components/User/ResetPassword.js";
 import Landing from "./components/Screen/Landing";
 import Header from "./components/Screen/Header.js";
@@ -53,6 +53,7 @@ function App() {
         <Route exact path="/" element={<Landing/>} />
         <Route exact path="/upload" element={<Uploadpage/>} />
         <Route exact path="/loginsignup" element={<LoginSignUp/>} />
+        <Route exact path="/password/forgot" element={<ForgotPassword/>} />
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </Router>
