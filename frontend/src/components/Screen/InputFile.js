@@ -14,6 +14,7 @@ import AttachMoneyIcon from "@material-ui/icons/AttachMoney";
 import { NEW_FILE_RESET } from "../../constants/landingConstant";
 import { useNavigate } from "react-router-dom";
 import { sub } from "./Subjectlist"
+import {Link} from "react-router-dom";
 
 
 const NewProduct = () => {
@@ -73,10 +74,17 @@ const NewProduct = () => {
 
     return (
         <Fragment>
-            <MetaData title="Create Product" />
-            <div className=" dashboard">
 
+            <MetaData title="Add your notes" />
+
+            <div className=" dashboard">
+                <Link to="/">
+                    <Button variant="contained" color="primary">
+                        Home
+                    </Button>
+                </Link>
                 <div className="newProductContainer">
+
                     <form
                         className="createProductForm"
                         encType="multipart/form-data"

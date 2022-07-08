@@ -24,6 +24,19 @@ import {
     DELETE_FILE_REQUEST,
     DELETE_FILE_SUCCESS,
     DELETE_FILE_FAIL,
+    ALLKEYS_REQUEST,
+    ALLKEYS_SUCCESS,
+    ALLKEYS_FAIL,
+    ACCEPT_REQUEST,
+    ACCEPT_SUCCESS,
+    ACCEPT_FAIL,
+    REJECT_REQUEST,
+    REJECT_SUCCESS,
+    REJECT_FAIL,
+    ADMIN_DELETE_REQUEST,
+    ADMIN_DELETE_SUCCESS,
+    ADMIN_DELETE_FAIL
+
 } from "../constants/landingConstant";
 
 
@@ -261,6 +274,123 @@ export const deletereducer= (state = {}, action) => {
                 keys: action.payload,
             };
         case DELETE_FILE_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+}
+
+
+export const allkeysreducer = (state = {}, action) => {
+    switch (action.type) {
+        case ALLKEYS_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case ALLKEYS_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                keys: action.payload,
+            };
+        case ALLKEYS_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+}
+
+export const  acceptreducer = (state = {}, action) => {
+    switch (action.type) {
+        case ACCEPT_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case ACCEPT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                keys: action.payload,
+            };
+        case ACCEPT_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+}
+
+export const rejectreducer = (state = {}, action) => {
+    switch (action.type) {
+        case REJECT_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case REJECT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                keys: action.payload,
+            };
+        case REJECT_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+        default:
+            return state;
+    }
+}
+
+export const admindeletereducer = (state = {}, action) => {
+    switch (action.type) {
+        case ADMIN_DELETE_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case ADMIN_DELETE_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                keys: action.payload,
+            };
+        case ADMIN_DELETE_FAIL:
             return {
                 ...state,
                 loading: false,

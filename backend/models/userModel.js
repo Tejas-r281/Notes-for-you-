@@ -43,7 +43,7 @@ const userSchema = new mongoose.Schema({
         type: Date,
         default: Date.now,
     },
-   
+
     accepted: [{
         type: String,
     }],
@@ -73,7 +73,7 @@ userSchema.pre("save", async function (next) {
 // JWT TOKEN
 userSchema.methods.getJWTToken = function () {
     return jwt.sign({ id: this._id }, process.env.JWT_SECRET, {
-        expiresIn: '1d',
+        expiresIn: '11d',
     });
 };
 

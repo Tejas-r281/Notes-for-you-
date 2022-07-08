@@ -4,6 +4,13 @@ const User = require("../models/userModel");
 const dbms = require("../models/dbms");
 const operatingSystem = require("../models/operatingsystem");
 const dsa = require("../models/dsa");
+const systemDesign = require("../models/systemDesign");
+const oop = require("../models/oop");
+const computerNetwork = require("../models/computerNetwork");
+const competitiveProgramming = require("../models/competitiveProgramming");
+const frontend = require("../models/frontend");
+const backend = require("../models/backend");
+
 const superSet = require("../models/superset");
 // const makePdf = require("../utils/makePdf");
 const sendToken = require("../utils/jwtToken");
@@ -37,25 +44,26 @@ exports.uploadFile = catchAsyncErrors(async (req, res, next) => {
 
     const fileType = myFile[myFile.length - 1];
     //  console.log(fileType);
+    // file should not be larger than 20 mb for uploading add constrains to the multer middleware
     const params = {
         Bucket: bucketName,
         Key: `${uuid()}.${fileType}.${data}`,
         Body: req.file.buffer,
     };
 
-     s3.upload(params, (error, data) => {
+    s3.upload(params, (error, data) => {
         if (error) {
             res.status(500).send(error);
         }
 
-            const dbmsData = new database({
-                key: params.Key,
-                description: description,
-                uploadedBy: req.user._id,
-                // uploadedBy: "62c4720e3153703aaace88cd",
-                fileUploadedOn: Date.now(),
-            });
-            dbmsData.save();
+        const dbmsData = new database({
+            key: params.Key,
+            description: description,
+            uploadedBy: req.user._id,
+            // uploadedBy: "62c4720e3153703aaace88cd",
+            fileUploadedOn: Date.now(),
+        });
+        dbmsData.save();
 
         const id = req.user._id;
         // const id = "62c4720e3153703aaace88cd";
@@ -84,7 +92,7 @@ const getFileStream = (filekey) => {
 
 exports.getfile = catchAsyncErrors(async (req, res, next) => {
     const key = req.params.id;
-    console.log(key);
+    // console.log(key);
     const readStream = getFileStream(key);
     readStream.pipe(res);
 });
@@ -92,16 +100,16 @@ exports.getfile = catchAsyncErrors(async (req, res, next) => {
 exports.deletefile = catchAsyncErrors(async (req, res, next) => {
     // const key = req.params.key;
     // console.log(req.body);
-    const{key,status}=req.body;
+    const { key, status } = req.body;
     // console.log(key);
     // console.log(status);
     let myFile = key.split(".");
     const database = myFile[myFile.length - 1];
 
     // console.log(database);
-    const user_detail= await User.findById(req.user._id);
+    const user_detail = await User.findById(req.user._id);
     // const database1 = eval(database);
-    const file_detail=  await eval(database).findOne({key:key});
+    const file_detail = await eval(database).findOne({ key: key });
     // console.log(file_detail);
     // console.log(user_detail);
     // now delete the file_detail and save the database
@@ -109,20 +117,80 @@ exports.deletefile = catchAsyncErrors(async (req, res, next) => {
 
 
     // delete file from user database
-    if(status==="accepted"){
-        user_detail.accepted.splice(user_detail.accepted.indexOf(key),1);
-        await  user_detail.save();
-        await file_detail.remove();
-        await user_detail.save();
-    }
-    else if(status==="rejected"){
-        user_detail.rejected.splice(user_detail.rejected.indexOf(key),1);
+    if (status === "accepted") {
+        user_detail.accepted.splice(user_detail.accepted.indexOf(key), 1);
         await user_detail.save();
         await file_detail.remove();
         await user_detail.save();
     }
-    else if(status==="pending"){
-        user_detail.pending.splice(user_detail.pending.indexOf(key),1);
+    else if (status === "rejected") {
+        user_detail.rejected.splice(user_detail.rejected.indexOf(key), 1);
+        await user_detail.save();
+        await file_detail.remove();
+        await user_detail.save();
+    }
+    else if (status === "pending") {
+        user_detail.pending.splice(user_detail.pending.indexOf(key), 1);
+        await user_detail.save();
+        await file_detail.remove();
+        await user_detail.save();
+    }
+    const params = {
+        Bucket: bucketName,
+        Key: key,
+    };
+    s3.deleteObject(params, (error, data) => {
+        if (error) {
+            res.status(500).send({
+                error: error,
+            });
+        }
+        res.status(200).send({
+            message: "File Deleted Successfully",
+        });
+    });
+});
+exports.admindeletefile = catchAsyncErrors(async (req, res, next) => {
+    // const key = req.params.key;
+    // console.log(req.body);
+    const {key}= req.body;
+    // console.log(key);
+    // console.log("yess");
+    // console.log(status);
+    let myFile = key.split(".");
+    const database = myFile[myFile.length - 1];
+
+    // console.log(database);
+
+    // const database1 = eval(database);
+    const file_detail = await eval(database).findOne({ key: key });
+    const id = file_detail.uploadedBy._id;
+    const user_detail= await User.findById(id);
+    // console.log(file_detail);
+    // console.log(user_detail);
+    // now delete the file_detail and save the database
+
+    // delete file from user database
+    const status= file_detail.status;
+
+    // console.log(user_detail);
+    // console.log(status);
+
+
+    if (status === "accepted") {
+        user_detail.accepted.splice(user_detail.accepted.indexOf(key), 1);
+        await user_detail.save();
+        await file_detail.remove();
+        await user_detail.save();
+    }
+    else if (status === "rejected") {
+        user_detail.rejected.splice(user_detail.rejected.indexOf(key), 1);
+        await user_detail.save();
+        await file_detail.remove();
+        await user_detail.save();
+    }
+    else if (status === "pending") {
+        user_detail.pending.splice(user_detail.pending.indexOf(key), 1);
         await user_detail.save();
         await file_detail.remove();
         await user_detail.save();
@@ -159,7 +227,7 @@ exports.getAllFiles = catchAsyncErrors(async (req, res, next) => {
         });
     });
 });
-const setstatus = async(database, key,res) => {
+const setstatus = async (database, key, res) => {
     return await database
         .findOne({ key: key })
         .then((data) => {
@@ -188,23 +256,24 @@ const setstatus = async(database, key,res) => {
 };
 
 // change the status from pending to activate
-exports.changeStatus = catchAsyncErrors(async (req, res, next) => {
+exports.acceptfile = catchAsyncErrors(async (req, res, next) => {
     // console.log(req.body);
 
-    const key = req.body.key;
+    const key = req.body.data;
     // const decription=req.body.description;
-    const data = req.body.subject;
+    let myFile = key.split(".");
+    const data = myFile[myFile.length - 1];
 
 
 
     const database = eval(data);
     // console.log(typeof database);
 
-      setstatus(database, key,res);
+    setstatus(database, key, res);
 
 });
 // remove the file from pending list and put into the rejected list of the users database
-const setrejectfile = (database, key,res) => {
+const setrejectfile = (database, key, res) => {
     return database
         .findOne({ key: key })
         .then((data) => {
@@ -233,34 +302,52 @@ const setrejectfile = (database, key,res) => {
 exports.rejectFile = catchAsyncErrors(async (req, res, next) => {
 
     // const id = req.user._id;
-    const key = req.body.key;
+    const key = req.body.data;
     // const subject = req.body.subject;
 
-    const data = req.body.subject;
+    let myFile = key.split(".");
+    const data = myFile[myFile.length - 1];
 
     const database = eval(data);
 
 
-    setrejectfile(database, key,res);
+    setrejectfile(database, key, res);
 
 
 });
 
 // get all key from dbms, operating system, dsa, superset
 exports.getAllKey = catchAsyncErrors(async (req, res, next) => {
-    const dbmsData = await dbms.find({}).populate("uploadedBy", "name").select('key');
-    const operatingSystemData = await operatingSystem
-        .find({})
-        .populate("uploadedBy", "name").select('key');
-    const dsaData = await dsa.find({}).populate("uploadedBy", "name").select('key');
-    const superSetData = await superSet.find({}).populate("uploadedBy", "name").select('key');
+    const dbmsData = await dbms.find({}).populate("uploadedBy", "name");
+    const operatingSystemData = await operatingSystem.find({}).populate("uploadedBy", "name")
+    const dsaData = await dsa.find({}).populate("uploadedBy", "name")
+    const superSetData = await superSet.find({}).populate("uploadedBy", "name")
+    const oopData = await oop.find({}).populate("uploadedBy", "name")
+    const systemDesignData = await systemDesign.find({}).populate("uploadedBy", "name")
+    const computerNetworkData = await computerNetwork.find({}).populate("uploadedBy", "name")
+    const competitiveProgrammingData = await competitiveProgramming.find({}).populate("uploadedBy", "name")
+    const frontEndData = await frontend.find({}).populate("uploadedBy", "name")
+    const backEndData = await backend.find({}).populate("uploadedBy", "name")
+
+
     // conlsole.log(dbmsData);
-    res.status(200).send({
-        dbmsData: dbmsData,
-        operatingSystemData: operatingSystemData,
-        dsaData: dsaData,
-        superSetData: superSetData,
-    });
+    // merging all the data in the sigle database and send
+    const data = [
+        ...dbmsData,
+        ...operatingSystemData,
+        ...dsaData,
+        ...superSetData,
+        ...oopData,
+        ...systemDesignData,
+        ...computerNetworkData,
+        ...competitiveProgrammingData,
+        ...frontEndData,
+        ...backEndData,
+    ];
+    res.status(200).send(data);
+
+
+
 });
 
 const setlike = async (database, key, req, res) => {
@@ -291,11 +378,11 @@ exports.likeFile = catchAsyncErrors(async (req, res, next) => {
 
     // const subject = req.body.subject;
 
-    const{key,subject}=req.body.data;
+    const { key, subject } = req.body.data;
     // console.log(key);
     console.log(subject);
     const database = eval(subject);
-   return setlike(database, key, req, res);
+    return setlike(database, key, req, res);
 
 
 });
@@ -344,7 +431,7 @@ exports.getAllComments = catchAsyncErrors(async (req, res, next) => {
 )
 // get all the key from specific subject
 exports.getAllKeyBySubject = catchAsyncErrors(async (req, res, next) => {
-    const {subject}=req.query;
+    const { subject } = req.query;
     // console.log(req.body);
     // console.log(req.query);
     const database = eval(subject);
@@ -360,7 +447,7 @@ exports.getAllKeyBySubject = catchAsyncErrors(async (req, res, next) => {
 // get subject details through key
 exports.getSubjectDetails = catchAsyncErrors(async (req, res, next) => {
     {
-        const key=req.params.key;
+        const key = req.params.key;
         let myFile = key.split(".");
         const database = myFile[myFile.length - 1];
 

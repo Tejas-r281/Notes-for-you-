@@ -13,18 +13,18 @@
 .pending
 {
     width:30%;
-    height:95vh;
+    height:90vh;
     overflow-y:auto;
 }
 .accepted
 {
     width:30%;
-    height:95vh;
+    height:90vh;
     overflow:auto;
 }
 .rejected
 {
     width:30%;
-    height:95vh;
+    height:90vh;
     overflow:auto;
 }

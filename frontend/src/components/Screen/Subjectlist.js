@@ -26,7 +26,7 @@ export const sub = [
     },
     {
         name:"Computer Networks",
-        database: "computerNetworks",
+        database: "computerNetwork",
         id: 6
     },
     {

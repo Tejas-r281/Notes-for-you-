@@ -22,6 +22,20 @@ import {
     DELETE_FILE_REQUEST,
     DELETE_FILE_SUCCESS,
     DELETE_FILE_FAIL,
+    ALLKEYS_REQUEST,
+    ALLKEYS_SUCCESS,
+    ALLKEYS_FAIL,
+    ACCEPT_REQUEST,
+    ACCEPT_SUCCESS,
+    ACCEPT_FAIL,
+    REJECT_REQUEST,
+    REJECT_SUCCESS,
+    REJECT_FAIL,
+    ADMIN_DELETE_REQUEST,
+    ADMIN_DELETE_SUCCESS,
+    ADMIN_DELETE_FAIL,
+
+
 
 } from "../constants/landingConstant";
 
@@ -195,6 +209,94 @@ export const deleteFile = (data) => async (dispatch) => {
     catch (err) {
         dispatch({
             type: DELETE_FILE_FAIL,
+            payload: err.response.data.message,
+        });
+
+    }
+}
+
+export const allkeysaction=()=>async(dispatch)=>{
+    try{
+        dispatch({
+            type:ALLKEYS_REQUEST,
+        });
+        const res=await axios.get("/api/v1/getallkey");
+        dispatch({
+            type:ALLKEYS_SUCCESS,
+            payload:res.data,
+        });
+    }
+    catch(err){
+        dispatch({
+            type:ALLKEYS_FAIL,
+
+            payload:err.response.data.message,
+        });
+
+    }
+}
+
+export const acceptfile = (data) => async (dispatch) => {
+    try {
+        dispatch({
+            type: ACCEPT_REQUEST,
+        });
+        console.log(data);
+        const config = { headers: { "Content-Type": "application/json" } };
+        const res = await axios.put(`/api/v1/acceptfile`, { data }, config);
+        dispatch({
+            type: ACCEPT_SUCCESS,
+            payload: res.data,
+        });
+    }
+    catch (err) {
+        dispatch({
+            type: ACCEPT_FAIL,
+            payload: err.response.data.message,
+        });
+
+    }
+}
+
+
+export const rejectfile = (data) => async (dispatch) => {
+    try {
+        dispatch({
+            type: REJECT_REQUEST,
+        });
+        // console.log(data);
+        const config = { headers: { "Content-Type": "application/json" } };
+        const res = await axios.put(`/api/v1/rejectfile`, { data }, config);
+        dispatch({
+            type: REJECT_SUCCESS,
+            payload: res.data,
+        });
+    }
+    catch (err) {
+        dispatch({
+            type: REJECT_FAIL,
+            payload: err.response.data.message,
+        });
+
+    }
+}
+
+export const admindeletefile = (data) => async (dispatch) => {
+    try {
+        dispatch({
+            type: ADMIN_DELETE_REQUEST,
+        });
+        // console.log(data);
+        const config = { headers: { "Content-Type": "application/json" } };
+        const res = await axios.delete(`/api/v1/admin/deletefile`, { data }, config);
+        dispatch({
+            type: ADMIN_DELETE_SUCCESS,
+            payload: res.data,
+        });
+    }
+    catch (err) {
+        dispatch({
+            type: ADMIN_DELETE_FAIL,
             payload: err.response.data.message,
         });
 

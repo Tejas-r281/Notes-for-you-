@@ -15,11 +15,10 @@ import ResetPassword from "./components/User/ResetPassword.js";
 import Landing from "./components/Screen/Landing";
 import Header from "./components/Screen/Header.js";
 import Uploadpage from "./components/Screen/Uploadpage.js";
-// import Recommendation from "./component/User/Recommendation.js";
-// import Suggestion from "./component/User/Suggestion.js";
-// import Profile from "./component/User/Profile.js";
-// import ShowAll from "./component/Admin/ShowAll";
-// import AdminLanding from "./component/Admin/AdminLanding.js"
+import AdminLanding from "./components/admin/Adminlanding.js";
+import Pending from "./components/admin/Pending";
+import Rejected from "./components/admin/Rejected";
+import Accepted from "./components/admin/Accepted";
 // import { useSelector } from "react-redux";
 // import {
 //   // addcomment,
@@ -29,7 +28,9 @@ import {landingaction,subjectaction,useraction} from "./actions/landingAction";
 
 function App() {
   //  const navigate1 = useNavigate();
-  // const { isAuthenticated, user } = useSelector((state) => state.user);
+  // const { keys } = useSelector((state) => state.me);
+  const isadmin="admin";
+
   useEffect(() => {
     try {
       store.dispatch(useraction());
@@ -59,6 +60,10 @@ function App() {
           path="/password/reset/:token"
           element={<ResetPassword />}
         />
+        {isadmin==="admin" && <Route exact path="/admin" element={<AdminLanding/>} />}
+        {isadmin==="admin" && <Route exact path="admin/pending" element={<Pending/>} />}
+        {isadmin==="admin" && <Route exact path="admin/rejected" element={<Rejected/>} />}
+        {isadmin==="admin" && <Route exact path="admin/accepted" element={<Accepted/>} />}
         <Route path="/*" element={<NotFound />} />
       </Routes>
     </Router>

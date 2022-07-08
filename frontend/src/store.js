@@ -20,7 +20,11 @@ import
     likereducer,
     changereducer,
     mereducer,
-    deletereducer
+    deletereducer,
+    allkeysreducer,
+    acceptreducer,
+    rejectreducer,
+    admindeletereducer
 } from "./reducers/landingReducer"
 // import {
 //     commentReducer,
@@ -53,7 +57,11 @@ const reducer = combineReducers({
     change: changereducer,
     // user: userReducer,
     me: mereducer,
-    deletefile: deletereducer
+    deletefile: deletereducer,
+    allkeys: allkeysreducer,
+    accept: acceptreducer,
+    reject: rejectreducer,
+    admindeletefile: admindeletereducer
 });
 
 

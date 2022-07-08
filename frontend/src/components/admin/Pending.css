@@ -1,0 +1,9 @@
+.pendinglist
+{
+    width: 100vw;
+    height:90vh;
+    display: flex;
+    flex-direction: column;
+    /* background-color:red; */
+    overflow: auto;
+}
