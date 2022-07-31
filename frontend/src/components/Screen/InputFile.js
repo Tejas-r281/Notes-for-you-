@@ -67,7 +67,10 @@ const NewProduct = () => {
 
     const createFilePdfChange = (e) => {
         const file = e.target.files[0];
-        // console.log(file.name);
+        if(file.size >= 50*1048576){
+            alert.info("File size can not be greater than 50MB");
+            return;
+        }
         setPdf(file);
         setNamePreview(file.name);
     };
@@ -139,6 +142,7 @@ const NewProduct = () => {
                         >
                             Upload Your Notes
                         </Button>
+                        {loading && <p>Uploading </p>}
                     </form>
                 </div>
             </div>
