@@ -5,6 +5,7 @@ import { useAlert } from "react-alert";
 //import { Redirect } from "react-router-dom";
 import { pageaction, likeaction, subjectaction } from "../../actions/landingAction";
 import FavoriteIcon from '@material-ui/icons/Favorite';
+import Landingcard from "./Landingcard.js";
 function Showfiles() {
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -53,7 +54,7 @@ function Showfiles() {
     <>
       {loading ? <Loader /> :
         <div className="subjectlist">
-          {keys && keys.map((subject, index) => {
+          { keys ? keys && keys.map((subject, index) => {
             return (
 
               <div className="subjectbox card" key={index}>
@@ -81,7 +82,8 @@ function Showfiles() {
             )
 
           }
-          )}
+          ) :
+            <Landingcard />}
         </div>
       }
     </>

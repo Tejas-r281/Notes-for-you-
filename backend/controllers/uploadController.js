@@ -437,7 +437,7 @@ exports.getAllKeyBySubject = catchAsyncErrors(async (req, res, next) => {
     const database = eval(subject);
 
 
-    const data1 = await database.find({}).populate("uploadedBy", "name");
+    const data1 = await database.find({ status: "accepted" }).populate("uploadedBy", "name");
     res.status(200).send({
         data: data1,
     });

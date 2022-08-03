@@ -23,6 +23,7 @@ const NewProduct = () => {
     const navigate = useNavigate();
 
     const { loading, error, success } = useSelector((state) => state.createfile);
+    const {error:error1} =useSelector((state) => state.me);
 
     const [linkedin, setlinkedin] = useState("");
 
@@ -67,6 +68,12 @@ const NewProduct = () => {
 
     const createFilePdfChange = (e) => {
         const file = e.target.files[0];
+        if(error1)
+        {
+            console.log(error1);
+            alert.info("Please Login before uploading Notes");
+            return ;
+        }
         if(file.size >= 50*1048576){
             alert.info("File size can not be greater than 50MB");
             return;

@@ -210,7 +210,7 @@ export const likereducer = (state = {}, action) => {
 }
 
 const subject = {
-    name: "founder  of this website",
+    name: "Lists Of All Subjects",
     database: "",
 };
 
@@ -242,13 +242,15 @@ export const mereducer = (state = {}, action) => {
             return {
                 ...state,
                 loading: false,
+                success:true,
                 keys: action.payload,
             };
         case ME_FAIL:
             return {
                 ...state,
                 loading: false,
-                error: action.payload,
+                success:false,
+                error: action.payload
             };
         case CLEAR_ERRORS:
             return {
