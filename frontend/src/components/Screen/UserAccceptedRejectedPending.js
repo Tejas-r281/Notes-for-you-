@@ -1,6 +1,6 @@
 import React from 'react'
 import "./ListFile.css"
-import SubjectCard from "./SubjectCard";
+import SubjectCard from "./UserPdfView";
 import { useDispatch, useSelector } from "react-redux"
 import { useAlert } from "react-alert";
 import { useEffect } from "react";

@@ -149,7 +149,7 @@ const NewProduct = () => {
                         >
                             Upload Your Notes
                         </Button>
-                        {loading && <p>Uploading </p>}
+                        {loading && <p>Uploading.... </p>}
                     </form>
                 </div>
             </div>

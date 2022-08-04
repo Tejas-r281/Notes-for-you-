@@ -1,6 +1,6 @@
 import React from 'react'
-import ListFile from "./ListFile.js";
-import InputFile from "./InputFile.js";
+import ListFile from "./UserAccceptedRejectedPending.js";
+import InputFile from "./InputFileDecription.js";
 import "./Uploadpage.css"
 
 function Uploadpage() {

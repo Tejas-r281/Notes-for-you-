@@ -1,7 +1,7 @@
 import React from 'react'
 import "./Landing.css"
 import Subject from "./Subjects";
-import Showfiles from "./Showfiles";
+import Showfiles from "./LandingPageShow";
 // import header
 import Header from "./Header";
 import {dispatch,useSelector} from "react-redux";
@@ -23,9 +23,7 @@ function Landing() {
         <Showfiles/>
         </div>
       </div>
-      <div className="homeright">
-       <Subject/>
-      </div>
+      
     </div>
     </>
   )

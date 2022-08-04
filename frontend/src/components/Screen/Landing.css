@@ -3,21 +3,21 @@
 {
     box-sizing: border-box;
     display:grid;
-    grid-template-columns: 1fr 250px;
+    /* grid-template-columns: 1fr 250px; */
     height: 90vh;
 }
 
 .homeright
 {
-    background-image:linear-gradient(to right, #fff5bc,#cec1ff);
+    /* background-image:linear-gradient(to right, #fff5bc,#cec1ff);
     overflow-y:auto;
     display:flex;
     flex-direction:column;
     align-items:center;
     /* padding:2vmax; */
-    box-sizing: border-box;
+    /* box-sizing: border-box; */
     /* margin:10px; */
-    padding-top:50px;
+    /* padding-top:50px;  */
 }
 
 .homeleft
