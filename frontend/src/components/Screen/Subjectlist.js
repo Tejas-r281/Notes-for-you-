@@ -15,7 +15,7 @@ export const sub = [
         id: 3
     },
     {
-        name:"System Design and Architecture",
+        name:"System Design",
         database: "systemDesign",
         id: 4
     },

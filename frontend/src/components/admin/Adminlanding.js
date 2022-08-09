@@ -13,9 +13,16 @@ function AdminLanding() {
     const dispatch = useDispatch();
 
     const {loading,keys} = useSelector((state) => state.allkeys);
+    const {error}  =useSelector((state) => state.me);
 
     useEffect(() => {
         try {
+             if(error)
+             {
+                    alert.show(error, { timeout: 5000 });
+                    return;
+             }
+
             dispatch(allkeysaction());
         }
         catch

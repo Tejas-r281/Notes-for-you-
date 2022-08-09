@@ -115,7 +115,7 @@ const LoginSignUp = () => {
       dispatch(clearErrors());
     }
     if (done === true) {
-      alert.success("Email sent , please confirm your email");
+      alert.show(`Please check SPAM FOLDER for Email Validatation`, { timeout: 5000 });
     }
     if (isAuthenticated) {
       // history.push(redirect);

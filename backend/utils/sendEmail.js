@@ -19,44 +19,44 @@ oauth2Client.setCredentials({
 
 const sendEmail = async (data) => {
 
-     try {
-        const accessToken = await oauth2Client.getAccessToken();
-        const transport = nodemailer.createTransport({
-          service: "gmail",
-          auth: {
-            type: "OAuth2",
-            user: "no.reply.4328@gmail.com",
-            clientId: client_id,
-            clientSecret: client_secret,
-            refreshToken: refresh_token,
-            accessToken: accessToken
-          }
-        });
-
-       var maillist = [
-         { name: "Raushan kumar", address: "rk1178816@gmail.com" },
-         { name: "Shyam kumar", address: "raushan.043.kumar@gmail.com" },
-       ];
-
-
-
-        const mailOptions = {
-          from: "Raushan kumar",
-          to: data.to,
-          // Bcc: maillist,
-          subject: data.subject,
-          // html: data.html
-          text: data.text
-        };
-
-        const result= await transport.sendMail(mailOptions);
-        // console.log(result);
-        return result;
-     }
-      catch (err) {
-        console.log(err);
-        return err;
+  try {
+    const accessToken = await oauth2Client.getAccessToken();
+    const transport = nodemailer.createTransport({
+      service: "gmail",
+      auth: {
+        type: "OAuth2",
+        user: "no.reply.4328@gmail.com",
+        clientId: client_id,
+        clientSecret: client_secret,
+        refreshToken: refresh_token,
+        accessToken: accessToken
       }
+    });
+
+    var maillist = [
+      { name: "Raushan kumar", address: "rk1178816@gmail.com" },
+      { name: "Shyam kumar", address: "raushan.043.kumar@gmail.com" },
+    ];
+
+
+
+    const mailOptions = {
+      from: "Raushan kumar",
+      to: data.to,
+      // Bcc: maillist,
+      subject: data.subject,
+      // html: data.html
+      text: data.text
+    };
+
+    const result = await transport.sendMail(mailOptions);
+    // console.log(result);
+    return result;
+  }
+  catch (err) {
+    console.log(err);
+    return err;
+  }
 
 
 
