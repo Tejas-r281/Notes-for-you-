@@ -5,6 +5,7 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 // import MailOutlineIcon from "@material-ui/icons/MailOutline";
 // import LockOpenIcon from "@material-ui/icons/LockOpen";
 // import FaceIcon from "@material-ui/icons/Face";
+
 import { useDispatch, useSelector } from "react-redux";
 import {
   clearErrors,
@@ -12,6 +13,7 @@ import {
   register,
   getAllUsers,
 } from "../../actions/userAction";
+import { useraction} from "../../actions/landingAction";
 import { useAlert } from "react-alert";
 
 const LoginSignUp = () => {
@@ -46,9 +48,10 @@ const LoginSignUp = () => {
   // console.table(user);
 
 
-  const loginSubmit = (e) => {
+  const loginSubmit = async(e) => {
     e.preventDefault();
-    dispatch(login(loginEmail, loginPassword));
+    await dispatch(login(loginEmail, loginPassword));
+    await dispatch(useraction());
   };
 
   const registerSubmit = (e) => {
@@ -115,13 +118,14 @@ const LoginSignUp = () => {
       dispatch(clearErrors());
     }
     if (done === true) {
-      alert.show(`Please check SPAM FOLDER for Email Validatation`, { timeout: 5000 });
+      alert.show(`Please check SPAM FOLDER for Email Validatation`, { timeout: 10000 });
     }
     if (isAuthenticated) {
       // history.push(redirect);
       // dispatch(getAllUsers());
-      // navigate("/students");
+      // navigate("/students");  
       navigate("/");
+
     }
 
 

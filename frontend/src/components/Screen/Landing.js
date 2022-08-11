@@ -4,6 +4,7 @@ import Subject from "./Subjects";
 import Showfiles from "./LandingPageShow";
 // import header
 import Header from "./Header";
+import Popup from "./PopUp";
 import {dispatch,useSelector} from "react-redux";
 
 function Landing() {
@@ -12,6 +13,7 @@ function Landing() {
   return (
     <>
       <Header/>
+      
     <div className="container home">
       <div className="homeleft">
         <div className="homelefttop">
@@ -23,7 +25,7 @@ function Landing() {
         <Showfiles/>
         </div>
       </div>
-      
+
     </div>
     </>
   )
