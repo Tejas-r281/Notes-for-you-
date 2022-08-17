@@ -24,6 +24,20 @@ const dbmsSchema = new mongoose.Schema({
         ref:"User",
         required:true,
     },
+    comments:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:"User",
+        comment:{
+            type:String,
+            required:true,
+            // add validation here description must not be empty
+            validate: [validator.isLength, {
+                min: 1,
+                max: 100,
+                message: "Comment must be between 1 and 100 characters"
+            }]
+        }
+    }],
     status:{
         type:String,
         enum:["pending","accepted","rejected"],

@@ -16,6 +16,7 @@ const {
     sendUserEmail,
     recommendation,
     deleteUsers,
+    comment,
 
     // homepage
 } = require("../controllers/userController");
@@ -33,7 +34,8 @@ router.route("/password/forgot").post(forgotPassword);
 
 router.route("/password/reset/:token").put(resetPassword);
 
-router.route("/user/recommendation").get(isAuthenticatedUser, recommendation);
+// router.route("/user/recommendation").get(isAuthenticatedUser, recommendation);
+router.route("/user/comment").post(isAuthenticatedUser,comment);
 
 router.route("/user/confirm/:token").get(confirmUser);
 

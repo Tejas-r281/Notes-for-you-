@@ -13,7 +13,7 @@ import {
   register,
   getAllUsers,
 } from "../../actions/userAction";
-import { useraction} from "../../actions/landingAction";
+import { useraction } from "../../actions/landingAction";
 import { useAlert } from "react-alert";
 
 const LoginSignUp = () => {
@@ -48,7 +48,7 @@ const LoginSignUp = () => {
   // console.table(user);
 
 
-  const loginSubmit = async(e) => {
+  const loginSubmit = async (e) => {
     e.preventDefault();
     await dispatch(login(loginEmail, loginPassword));
     await dispatch(useraction());
@@ -56,15 +56,6 @@ const LoginSignUp = () => {
 
   const registerSubmit = (e) => {
     e.preventDefault();
-
-    // const myForm = new FormData();
-
-    // myForm.set("name", name);
-    // myForm.set("email", email);
-    // myForm.set("password", password);
-    // myForm.set("hostel", hostel);
-    // myForm.set("change", change);
-    // myForm.set("avatar", avatar);
     const myForm =
     {
       "name": name,
@@ -80,34 +71,9 @@ const LoginSignUp = () => {
   };
 
   const registerDataChange = (e) => {
-    // if (e.target.name === "avatar") {
-    //   const reader = new FileReader();
 
-    //   reader.onload = () => {
-    //     if (reader.readyState === 2) {
-    //       setAvatarPreview(reader.result);
-    //       setAvatar(reader.result);
-    //     }
-    //   };
-
-    //   reader.readAsDataURL(e.target.files[0]);
-    // } else {
-    // var checked = false;
-    // if (document.querySelector("#checkboxNoLabel:checked")) {
-    //   checked = true;
-    // }
-
-
-
-
-    //  console.log(strUser);
-    //   console.log(strUser1);
-
-
-
-    // console.log(checked);
     setUser({ ...user, [e.target.name]: e.target.value });
-    // }
+
   };
   // console.log(location);
   // const redirect = location.search ? location.search.split("=")[1] : "/account";
@@ -123,7 +89,7 @@ const LoginSignUp = () => {
     if (isAuthenticated) {
       // history.push(redirect);
       // dispatch(getAllUsers());
-      // navigate("/students");  
+      // navigate("/students");
       navigate("/");
 
     }

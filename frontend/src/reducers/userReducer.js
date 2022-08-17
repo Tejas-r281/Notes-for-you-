@@ -47,6 +47,9 @@ import {
     USER_RECOMMENDATION_REQUEST,
     USER_RECOMMENDATION_SUCCESS,
     USER_RECOMMENDATION_FAIL,
+    USER_COMMENT_REQUEST,
+    USER_COMMENT_SUCCESS,
+    USER_COMMENT_FAIL,
 } from "../constants/userConstant";
 //Recommendation list of users
 
@@ -366,3 +369,35 @@ export const userDetailsReducer = (state = { user: {} }, action) => {
             return state;
     }
 };
+
+export const userCommentsReducer = (state = { comments: [] }, action) => {
+    switch (action.type) {
+        case USER_COMMENT_REQUEST:
+            return {
+                ...state,
+                loading: true,
+            };
+        case USER_COMMENT_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                comments: action.payload,
+            };
+
+        case USER_COMMENT_FAIL:
+            return {
+                ...state,
+                loading: false,
+                error: action.payload,
+            };
+
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null,
+            };
+
+        default:
+            return state;
+    }
+}

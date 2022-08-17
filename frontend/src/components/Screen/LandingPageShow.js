@@ -6,6 +6,7 @@ import { useAlert } from "react-alert";
 import { pageaction, likeaction, subjectaction } from "../../actions/landingAction";
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import Landingcard from "./Landingcard.js";
+import CommentSection from "../User/CommentSection";
 function Showfiles() {
   const dispatch = useDispatch();
   const alert = useAlert();
@@ -66,6 +67,10 @@ function Showfiles() {
                       <div>
                         <FavoriteIcon onClick={()=>likesButton(subject.key)} /><span>{subject.likes.length}</span>
                       </div>
+
+                      <button className="btn-danger">
+                          <CommentSection subject={subject} />
+                      </button>
 
                       <button className="subject btn-success" onClick={() => redirectToPdf(subject.key)}>
                         <h6>View Pdf</h6>

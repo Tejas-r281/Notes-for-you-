@@ -41,6 +41,9 @@ import {
     USER_RECOMMENDATION_REQUEST,
     USER_RECOMMENDATION_SUCCESS,
     USER_RECOMMENDATION_FAIL,
+    USER_COMMENT_REQUEST,
+    USER_COMMENT_SUCCESS,
+    USER_COMMENT_FAIL,
 } from "../constants/userConstant";
 import axios from "axios";
 //recommendation list of users
@@ -310,3 +313,20 @@ export const deleteUser = () => async (dispatch) => {
 export const clearErrors = () => async (dispatch) => {
     dispatch({ type: CLEAR_ERRORS });
 };
+
+export const addComment = (comment) => async (dispatch) => {
+    try {
+        dispatch({ type: USER_COMMENT_REQUEST });
+
+        const config = { headers: { "Content-Type": "application/json" } };
+
+        const { data } = await axios.post(`/api/v1/user/comment`, comment, config);
+
+        dispatch({ type: USER_COMMENT_SUCCESS, payload: data.comment });
+    } catch (error) {
+        dispatch({
+            type: USER_COMMENT_FAIL,
+            payload: error.response.data.message,
+        });
+    }
+}

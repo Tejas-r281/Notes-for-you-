@@ -9,7 +9,8 @@ import {
     profileReducer,
     forgotPasswordReducer,
     sendEmailReducer,
-    recommendationReducer
+    recommendationReducer,
+    userCommentsReducer
 } from "./reducers/userReducer";
 import
 {
@@ -24,7 +25,8 @@ import
     allkeysreducer,
     acceptreducer,
     rejectreducer,
-    admindeletereducer
+    admindeletereducer,
+
 } from "./reducers/landingReducer"
 // import {
 //     commentReducer,
@@ -61,7 +63,8 @@ const reducer = combineReducers({
     allkeys: allkeysreducer,
     accept: acceptreducer,
     reject: rejectreducer,
-    admindeletefile: admindeletereducer
+    admindeletefile: admindeletereducer,
+    comment: userCommentsReducer
 });
 
 
