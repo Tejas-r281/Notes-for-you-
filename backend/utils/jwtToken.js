@@ -13,7 +13,7 @@ const sendToken = (user, req, statusCode, res, confirm) => {
     if (confirm === "confirmation") {
         //res.redirect(`${req.protocol}://${req.get("host")}/`);
         // console.log(req.protocol, req.host, req.port);
-        res.redirect('https://notes-app-for-you.herokuapp.com/loginsignup');
+        res.redirect('http://localhost:3000/loginsignup');
     } else {
         res.status(statusCode).cookie("notes_for_you", token, options).json({
             success: true,

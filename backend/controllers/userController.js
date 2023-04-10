@@ -26,10 +26,10 @@ exports.registerUser = catchAsyncErrors(async (req, res, next) => {
     // 3) Save the resetToken in the user's document
     await user.save({ validateBeforeSave: false });
     // 3) Send it to user's email
-    const resetPasswordUrl = `${req.protocol}://${req.get(
-        "host"
-    )}/api/v1/user/confirm/${resetToken}`;
-    // const resetPasswordUrl = `http://localhost:5000/api/v1/user/confirm/${resetToken}`;
+    // const resetPasswordUrl = `${req.protocol}://${req.get(
+    //     "host"
+    // )}/api/v1/user/confirm/${resetToken}`;
+    const resetPasswordUrl = `http://localhost:5000/api/v1/user/confirm/${resetToken}`;
 
     const message = `Please click this link to confirm your email address: ${resetPasswordUrl}.\n`;
     const data =
@@ -275,9 +275,13 @@ exports.forgotPassword = catchAsyncErrors(async (req, res, next) => {
 
     await user.save({ validateBeforeSave: false });
 
-    const resetPasswordUrl = `${req.protocol}://${req.get(
-        "host"
-    )}/password/reset/${resetToken} `;
+    // const resetPasswordUrl = `${req.protocol}://${req.get(
+    //     "host"
+    // )}/password/reset/${resetToken} `;
+
+    const resetPasswordUrl = `http://localhost:5000/api/v1/user/password/reset/${resetToken}`;
+
+
 
     const message = `Your password reset token is: - \n\n ${resetPasswordUrl} \n\nIf you have not requested this email then, please ignore it.`;
     const data =

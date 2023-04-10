@@ -31,7 +31,8 @@ function Showfiles(props) {
     //window.location.href = `http:
     // https://notes-app-for-you.herokuapp.com/
 
-    window.location.href = `https://notes-app-for-you.herokuapp.com/api/v1/file/${key}`;
+    // window.location.href = `https://notes-app-for-you.herokuapp.com/api/v1/file/${key}`;
+    window.location.href=`http://localhost:5000/api/v1/file/${key}`
   }
   const deleteButton = async (key) => {
     // console.log(key)

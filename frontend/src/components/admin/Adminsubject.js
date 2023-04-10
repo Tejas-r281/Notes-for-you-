@@ -18,7 +18,8 @@ function Adminsubject({status,subject}) {
         {
             // console.log("viewfiles");
         //    await dispatch(pageaction(key));
-        window.location.href = `https://notes-app-for-you.herokuapp.com/api/v1/file/${key}`;
+        // window.location.href = `https://notes-app-for-you.herokuapp.com/api/v1/file/${key}`;
+        window.location.href=`http://localhost:5000/api/v1/file/${key}`;
         }
 
     const acceptfiles = async(key) =>
