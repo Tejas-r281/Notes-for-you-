@@ -75,7 +75,7 @@ module.exports = sendEmail;
 //         secureConnection: false,
 //         auth: {
 //             user:"raushan.043.kumar@gmail.com",
-//             pass: "285870100",
+//             pass: "",
 //         },
 //         tls: {
 //             rejectUnAuthorized: true,
